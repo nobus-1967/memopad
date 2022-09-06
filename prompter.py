@@ -119,7 +119,7 @@ def check_confirmation() -> str:
 
     while confirmation not in CONFIRMATIONS:
         print_md("Неправильный ввод, введите `yes` или `no`!")
-        confirmation = confirm_command().strip()
+        confirmation = confirm_command().strip().lower()
 
     return confirmation
 
