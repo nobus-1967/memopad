@@ -2,7 +2,8 @@
 
 **MemoPad** - CLI-программа для создания, редактирования и просмотра заметок в терминале, использующая [`SQLite`](https://www.sqlite.org) как базу заметок.
 
-Программа позволяет использовать в заметках форматирование элементы языка разметки [`Markdown`](https://www.markdownguide.org/basic-syntax).
+Программа позволяет использовать в заметках форматирование (элементы языка 
+разметки [`Markdown`](https://www.markdownguide.org/basic-syntax)).
 
 Для многострочного ввода текста применяются возможности модуля [`Prompt Toolkit`](https://github.com/prompt-toolkit/python-prompt-toolkit).
 

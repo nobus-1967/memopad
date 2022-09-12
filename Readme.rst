@@ -5,9 +5,9 @@ MemoPad
 заметок в терминале, использующая
 `SQLite <https://www.sqlite.org>`__ как базу заметок.
 
-Программа позволяет использовать в заметках форматирование элементы
+Программа позволяет использовать в заметках форматирование (элементы
 языка разметки
-`Markdown <https://www.markdownguide.org/basic-syntax>`__.
+`Markdown <https://www.markdownguide.org/basic-syntax>`__).
 
 Для многострочного ввода текста применяются возможности модуля
 `Prompt Toolkit <https://github.com/prompt-toolkit/python-prompt-toolkit>`__.
