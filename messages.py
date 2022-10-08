@@ -1,9 +1,9 @@
 """Program messages for MemoPad."""
 TITLE: str = """
-# MEMOPAD (SQLite-версия 1.1.6)
+# MEMOPAD (SQLite-версия 1.1.7)
 
 """
-INFO = """
+INFO: str = """
 **`MemoPad`** - консольный редактор и база заметок.
 Чтобы получить информацию о командах приложения, наберите в командной строке
 `help`.
