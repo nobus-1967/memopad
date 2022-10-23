@@ -69,8 +69,8 @@ def show_recent(path: Path) -> None:
     cursor = connection.cursor()
 
     sql_select_latest = """SELECT ROWID, date_time, titles, bodies, tags
-                                FROM memos
-                                ORDER BY ROWID DESC;"""
+                                  FROM memos
+                                  ORDER BY ROWID DESC;"""
 
     try:
         cursor.execute(sql_select_latest)
@@ -94,9 +94,8 @@ def show_last(path: Path) -> None:
     cursor = connection.cursor()
 
     sql_select_last = """SELECT ROWID, date_time, titles, bodies, tags
-                              FROM memos
-                              ORDER BY ROWID DESC;"""
-
+                             FROM memos
+                             ORDER BY ROWID DESC;"""
     try:
         cursor.execute(sql_select_last)
         memos = cursor.fetchmany(5)
@@ -187,9 +186,7 @@ def edit_title(path: Path) -> None:
             memo = cursor.fetchone()
             copy_to_clipboard(memo[0].lstrip('## '))
 
-            updated = input_corrected_title()
-            updated_date_time = updated[0]
-            corrected_title = updated[1]
+            updated_date_time, corrected_title = input_corrected_title()
 
             print_md('Сохранить заметку с отредактированным заголовком?')
             confirmation = check_confirmation()
@@ -229,9 +226,7 @@ def edit_body(path: Path) -> None:
             memo = cursor.fetchone()
             copy_to_clipboard(memo[0])
 
-            updated = input_corrected_body()
-            updated_date_time = updated[0]
-            corrected_text = updated[1]
+            updated_date_time, corrected_text = input_corrected_body()
 
             print_md('Сохранить заметку с отредактированным текстом?')
             confirmation = check_confirmation()
@@ -268,11 +263,11 @@ def edit_tag(path: Path) -> None:
             cursor.execute(sql_select_tag, (rowid,))
 
             memo = cursor.fetchone()
-            copy_to_clipboard(memo[0].lstrip('#'))
+            copy_to_clipboard(
+                ' '.join([tag.lstrip('#') for tag in memo[0].split()])
+            )
 
-            updated = input_corrected_tag()
-            updated_date_time = updated[0]
-            corrected_tag = updated[1]
+            updated_date_time, corrected_tag = input_corrected_tag()
 
             print_md('Сохранить заметку с отредактированным тегом?')
             confirmation = check_confirmation()

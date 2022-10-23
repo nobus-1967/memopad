@@ -6,7 +6,7 @@ from prompter import get_new_title, get_new_text, get_new_tag
 from prompter import get_title_to_edit, get_text_to_edit, get_tag_to_edit
 
 
-def create_new_memo() -> tuple:
+def create_new_memo() -> tuple[str, str, str, str]:
     """Create new memo (as tuple) with date_time, title, body and tag."""
     memo = (set_datetime(), input_title(), input_body(), input_tag())
 
@@ -52,15 +52,18 @@ def input_tag() -> str:
     """Input and return tag of new memo."""
     no_tag = '#no_tag'
 
-    print_md('Введите тег или просто нажмите `ENTER`:')
-    tag = get_new_tag().strip()
+    print_md(
+        'Введите тег (теги, разделённые пробелами) или просто нажмите '
+        '`ENTER`:'
+    )
+    tags = get_new_tag().strip()
 
-    if tag:
-        tag = f'#{tag}'
+    if tags:
+        tags = ' '.join([f'#{tag.strip()}' for tag in tags.split(' ') if tag])
     else:
-        tag = no_tag
+        tags = no_tag
 
-    return tag
+    return tags
 
 
 def input_corrected_title() -> tuple[str, str]:
@@ -109,13 +112,15 @@ def input_corrected_tag() -> tuple[str, str]:
         'Вставьте прежний текст из буфера (`CTRL+Y`) и внесите в него '
         + 'исправления, затем нажмите `ENTER`:'
     )
-    corrected_tag = get_tag_to_edit().strip()
+    corrected_tags = get_tag_to_edit().strip()
 
-    if corrected_tag:
-        corrected_tag = f'#{corrected_tag}'
+    if corrected_tags:
+        corrected_tags = ' '.join(
+            [f'#{tag.strip()}' for tag in corrected_tags.split(' ') if tag]
+        )
     else:
-        corrected_tag = no_tag
+        corrected_tags = no_tag
 
     updated_date_time = set_datetime()
 
-    return updated_date_time, corrected_tag
+    return updated_date_time, corrected_tags
