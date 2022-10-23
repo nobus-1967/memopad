@@ -109,7 +109,7 @@ def input_corrected_tag() -> tuple[str, str]:
     no_tag = '#no_tag'
 
     print_md(
-        'Вставьте прежний текст из буфера (`CTRL+Y`) и внесите в него '
+        'Вставьте прежний тег или теги из буфера (`CTRL+Y`) и внесите '
         + 'исправления, затем нажмите `ENTER`:'
     )
     corrected_tags = get_tag_to_edit().strip()
