@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MemoPad - CLI program using SQLite to store memos (version 1.1.7)."""
+"""MemoPad - CLI program using SQLite to store memos (version 1.1.8)."""
 import sys
 
 from prompt_toolkit.shortcuts import set_title
