@@ -35,4 +35,4 @@ MemoPad
 Версия программы: ``1.1.8``
 
 Лицензия: `GNU General Public License
-v3.0 <https://www.gnu.org/licenses/gpl-3.0.html>`__.
+v3.0 <LICENSE.md>`__.
