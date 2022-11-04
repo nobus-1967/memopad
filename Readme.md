@@ -7,8 +7,6 @@
 
 Для многострочного ввода текста применяются возможности модуля [`Prompt Toolkit`](https://github.com/prompt-toolkit/python-prompt-toolkit).
 
-Регистронезависмый поиск по кириллическому тексту реализован с помощью пакета [`sqlite-icu`](https://pypi.org/project/sqlite-icu).
-
 Для копирования и вставки текста применяется модуль [`Pyperclip`](https://pyperclip.readthedocs.io/en/latest). В **GNU/Linux** использование данного модуля может потребовать установку одного из механизмов работы с буфером обмена: `xsel`, `xclip`, `gtk` или `PyQt4`.
 
 Список внешних заимствований содержится в файле `requirements.txt`.

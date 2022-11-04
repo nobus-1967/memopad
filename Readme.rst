@@ -12,9 +12,6 @@ MemoPad
 Для многострочного ввода текста применяются возможности модуля
 `Prompt Toolkit <https://github.com/prompt-toolkit/python-prompt-toolkit>`__.
 
-Регистронезависмый поиск по кириллическому тексту реализован с помощью
-пакета `sqlite-icu <https://pypi.org/project/sqlite-icu>`__.
-
 Для копирования и вставки текста применяется модуль
 `Pyperclip <https://pyperclip.readthedocs.io/en/latest>`__. В
 **GNU/Linux** использование данного модуля может потребовать установку
