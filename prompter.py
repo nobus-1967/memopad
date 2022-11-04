@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Using custom editable prompt."""
+"""Uses custom editable prompt from module `prompt-toolkit`."""
+from datetime import datetime
 from prompt_toolkit import prompt
 from prompt_toolkit.clipboard.pyperclip import PyperclipClipboard
 from prompt_toolkit.completion import WordCompleter
@@ -73,7 +74,13 @@ CONFIRMATIONS: list[str] = ['yes', '-y', 'no', '-n']
 
 
 def get_command() -> str:
-    """Input user's command."""
+    """Enters user's command.
+
+    Returns:
+        str: command for command-line interpreter using autocomplete
+        from module `prompt-toolkit`.
+
+    """
     command_completer = WordCompleter(COMMANDS)
 
     command: str = prompt(
@@ -85,7 +92,16 @@ def get_command() -> str:
 
 
 def check_command() -> str:
-    """Check user's command."""
+    """Checks user's command.
+
+    Returns:
+        str: command for command-line interpreter
+        if command returned by function `get_command` is valid;
+        otherwise user's input repeats in loop.
+
+        Valid commands is listed in `COMMANDS`.
+
+    """
     command = get_command().strip().lower()
 
     while command not in COMMANDS:
@@ -96,7 +112,13 @@ def check_command() -> str:
 
 
 def confirm_command() -> str:
-    """Confirm or cancel operations with database."""
+    """Confirms or cancel operations with database.
+
+    Returns:
+        str: confirmation command for command-line interpreter
+        using autocomplete from module `prompt-toolkit`.
+
+    """
     confirm_completer = WordCompleter(CONFIRMATIONS)
 
     command: str = prompt(
@@ -114,7 +136,16 @@ def confirm_command() -> str:
 
 
 def check_confirmation() -> str:
-    """Check user's command."""
+    """Checks user's confirmation command.
+
+    Returns:
+        str: confirmation command for command-line interpreter
+        if confirmation command returned by function `get_command` is valid;
+        otherwise user's input repeats in loop.
+
+        Valid confirmation commands is listed in `CONFIRMATIONS`.
+
+    """
     confirmation = confirm_command().strip().lower()
 
     while confirmation not in CONFIRMATIONS:
@@ -125,7 +156,17 @@ def check_confirmation() -> str:
 
 
 def get_rowid() -> int:
-    """Input user's choice to choose memo's ROWID."""
+    """Enters user's choice to choose memo's ROWID.
+
+    Returns:
+        int: memo's rowid entered by user.
+
+    Raises:
+        ValueError: If rowid is less then 0.
+
+        In that case returns 0.
+
+    """
     try:
         print_md('Введите `ID` заметки:')
         rowid = int(
@@ -149,28 +190,48 @@ def get_rowid() -> int:
 
 
 def get_new_title() -> str:
-    """Prompt to enter title for new memo."""
+    """Prompts to enter title for new memo.
+
+    Returns:
+        str: user's input - title for creating memo.
+
+    """
     new_title = prompt(ANSI('\033[32;1m##\033[0m '))
 
     return new_title
 
 
 def get_new_text() -> str:
-    """Prompt to enter text of body for new memo."""
+    """Prompts to enter text of body for new memo.
+
+    Returns:
+        str: user's input - multi-line text for creating memo.
+
+    """
     new_text = prompt(ANSI('\033[32;1mТекст\033[0m '), multiline=True)
 
     return new_text
 
 
 def get_new_tag() -> str:
-    """Prompt to enter tag for new memo."""
+    """Prompts to enter tag(s) for new memo.
+
+    Returns:
+        str: user's input - tag(s) for creating memo.
+
+    """
     new_tag = prompt(ANSI('\033[32;1m#\033[0m'))
 
     return new_tag
 
 
 def get_title_to_edit() -> str:
-    """Prompt to enter title to edit or replace."""
+    """Prompts to enter title to edit or replace.
+
+    Returns:
+        str: user's input - new or corrected title for existing memo.
+
+    """
     title_to_edit = prompt(
         ANSI('\033[32;1m##\033[0m '), clipboard=PyperclipClipboard()
     )
@@ -179,7 +240,12 @@ def get_title_to_edit() -> str:
 
 
 def get_text_to_edit() -> str:
-    """Prompt to enter text of body to edit or replace."""
+    """Prompts to enter text of body to edit or replace.
+
+    Returns:
+        str: user's input - new or corrected text for existing memo.
+
+    """
     text_to_edit = prompt(
         ANSI('\033[32;1mТекст\033[0m '),
         multiline=True,
@@ -190,7 +256,12 @@ def get_text_to_edit() -> str:
 
 
 def get_tag_to_edit() -> str:
-    """Prompt to enter tag to edit or replace."""
+    """Prompts to enter tag(s) to edit or replace.
+
+    Returns:
+        str: user's input - new or corrected tag(s) for existing memo.
+
+    """
     tag_to_edit = prompt(
         ANSI('\033[32;1m#\033[0m'), clipboard=PyperclipClipboard()
     )
@@ -199,7 +270,12 @@ def get_tag_to_edit() -> str:
 
 
 def get_date_to_search() -> str:
-    """Prompt to enter memo's date to search."""
+    """Prompts to enter memo's date to search.
+
+    Returns:
+        str: user's input - date of existing memo.
+
+    """
     date_to_search = prompt(
         ANSI(
             '\033[31;1m(\033[0m'
@@ -216,10 +292,15 @@ def get_date_to_search() -> str:
 
 
 def get_title_to_search() -> str:
-    """Prompt to enter memo's title to search."""
+    """Prompts to enter memo's title to search.
+
+    Returns:
+        str: user's input - existing memo's title (part of title).
+
+    """
     title_to_search = prompt(
         ANSI(
-            '\033[31;1m   (\033[0m'
+            '\033[31;1m(\033[0m'
             '\033[32;1m##\033[0m '
             '\033[34;1mЗаголовок\033[0m'
             '\033[31;1m)\033[0m '
@@ -230,7 +311,12 @@ def get_title_to_search() -> str:
 
 
 def get_text_to_search() -> str:
-    """Prompt to enter text in memo's body to search."""
+    """Prompts to enter text in memo's body to search.
+
+    Returns:
+        str: user's input - part (keyword) of existing memo's body.
+
+    """
     text_to_search = prompt(
         ANSI(
             '\033[31;1m(\033[0m' '\033[34;1mТекст\033[0m' '\033[31;1m)\033[0m '
@@ -241,7 +327,12 @@ def get_text_to_search() -> str:
 
 
 def get_tag_to_search() -> str:
-    """Prompt to enter memo's tag to search."""
+    """Prompts to enter memo's tag to search.
+
+    Returns:
+        str: user's input - existing memo's tag(s).
+
+    """
     tag_to_search = prompt(
         ANSI(
             '\033[31;1m(\033[0m'

@@ -1,21 +1,29 @@
-"""Connect to database; insert, select, edit and delete data; search data."""
+"""Connects to SQLite-database and process data (memos)."""
+from datetime import datetime
 from pathlib import Path
 from sqlite3 import connect, DatabaseError
 
 from pyperclip import copy as copy_to_clipboard
-from sqlite_icu import extension_path
 
 from dbmanager import check_db, check_backup, set_backup_path, restore_db
 from mdprinter import print_memo_from_db, print_md, print_total
 from memoeditor import input_corrected_body
 from memoeditor import input_corrected_title, input_corrected_tag
 from prompter import check_confirmation, get_rowid
-from prompter import get_date_to_search, get_title_to_search
-from prompter import get_text_to_search, get_tag_to_search
+from prompter import get_date_to_search
+from prompter import get_title_to_search, get_text_to_search, get_tag_to_search
 
 
 def check_db_path_and_table(path: Path) -> None:
-    """Check database path and create database if not exists."""
+    """Checks database's path and creates DB if not exists.
+
+    Note:
+        If database's backup exist, restores database from backup.
+
+     Args:
+         path (Path): PosixPath of program's working directory.
+
+    """
     is_db = check_db(path)
 
     if is_db:
@@ -40,7 +48,15 @@ def check_db_path_and_table(path: Path) -> None:
 
 
 def create_db(path: Path) -> None:
-    """Create empty database for memos if not exists."""
+    """Creates empty DB of memos if not exists using SQL-query.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Raises:
+        DatabaseError: If operation failed.
+
+    """
     connection = connect(path)
     cursor = connection.cursor()
 
@@ -64,7 +80,15 @@ def create_db(path: Path) -> None:
 
 
 def show_recent(path: Path) -> None:
-    """Show the latest memo."""
+    """Shows the latest memo using SQL-query.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Raises:
+        DatabaseError: If operation failed.
+
+    """
     connection = connect(path)
     cursor = connection.cursor()
 
@@ -89,7 +113,15 @@ def show_recent(path: Path) -> None:
 
 
 def show_last(path: Path) -> None:
-    """Show last 5 memos."""
+    """Shows last 5 memos using SQL-query.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Raises:
+        DatabaseError: If operation failed.
+
+    """
     connection = connect(path)
     cursor = connection.cursor()
 
@@ -114,7 +146,15 @@ def show_last(path: Path) -> None:
 
 
 def show_all(path: Path) -> None:
-    """Show all memos."""
+    """Show all memos using SQL-query.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Raises:
+        DatabaseError: If operation failed.
+
+    """
     connection = connect(path)
     cursor = connection.cursor()
 
@@ -140,14 +180,29 @@ def show_all(path: Path) -> None:
 
 
 def show_total_memos(path: Path) -> None:
-    """Show total of memos in database."""
+    """Shows total of memos in DB using functions `count_memos`, `print-memos`.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    """
     total = count_memos(path)
 
     print_total(total)
 
 
-def add_memo(path: Path, memo: tuple) -> None:
-    """Add new memo to database."""
+def add_memo(path: Path, memo: tuple[str, ...]) -> None:
+    """Adds new memo to DB using SQL-query.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+        memo (tuple[str, ...]): tuple contains memo's elements
+        (date_time, title, body and tag).
+
+    Raises:
+        DatabaseError: If operation failed.
+
+    """
     connection = connect(path)
     cursor = connection.cursor()
 
@@ -166,7 +221,22 @@ def add_memo(path: Path, memo: tuple) -> None:
 
 
 def edit_title(path: Path) -> None:
-    """Edit title of existing memo."""
+    """Edits title of existing memo using SQL-query.
+
+    Note:
+        User can paste previous title from clipboard
+        (function `copy_to_clipboard` is an alias to `pyperclip.copy`)
+        and then edit it; or may enter new title.
+
+        User have to confirm changes.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Raises:
+        DatabaseError: If operation failed.
+
+    """
     connection = connect(path)
     cursor = connection.cursor()
 
@@ -206,7 +276,22 @@ def edit_title(path: Path) -> None:
 
 
 def edit_body(path: Path) -> None:
-    """Edit body of existing memo."""
+    """Edits body of existing memo using SQL-query.
+
+    Note:
+        User can paste previous text from clipboard
+        (function `copy_to_clipboard` is an alias to `pyperclip.copy`)
+        and then edit it; or may enter new text.
+
+        User have to confirm changes.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Raises:
+        DatabaseError: If operation failed.
+
+    """
     connection = connect(path)
     cursor = connection.cursor()
 
@@ -245,7 +330,22 @@ def edit_body(path: Path) -> None:
 
 
 def edit_tag(path: Path) -> None:
-    """Edit tag of existing memo."""
+    """Edit tag(s) of existing memo using SQL-query.
+
+    Note:
+        User can paste previous tag(s) from clipboard
+        (function `copy_to_clipboard` is an alias to `pyperclip.copy`)
+        and then edit them; or may enter new tag(s).
+
+        User have to confirm changes.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Raises:
+        DatabaseError: If operation failed.
+
+    """
     connection = connect(path)
     cursor = connection.cursor()
 
@@ -312,7 +412,18 @@ def delete_memo(path: Path) -> None:
 
 
 def delete_all(path: Path) -> None:
-    """Delete all memos from database."""
+    """Delete all memos from database using SQL-query.
+
+    Note:
+        User have to confirm operation.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Raises:
+        DatabaseError: If operation failed.
+
+    """
     connection = connect(path)
     cursor = connection.cursor()
 
@@ -334,7 +445,15 @@ def delete_all(path: Path) -> None:
 
 
 def search_memo_by_date(path: Path) -> None:
-    """Search memo in database (by date)."""
+    """Search memo in database (by date) using SQL-query.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Raises:
+        DatabaseError: If operation failed.
+
+    """
     connection = connect(path)
     cursor = connection.cursor()
 
@@ -346,6 +465,15 @@ def search_memo_by_date(path: Path) -> None:
         + 'в формате `ГГГГ-ММ-ДД`:'
     )
     date = get_date_to_search().strip()
+    date_is_valid = check_date(date)
+
+    while not date_is_valid:
+        print_md(
+            'Введите правильную дату создания (редактирования) заметки '
+            + 'в формате `ГГГГ-ММ-ДД`:'
+        )
+        date = get_date_to_search().strip()
+        date_is_valid = check_date(date)
 
     try:
         cursor.execute(sql_select_date, (date,))
@@ -366,21 +494,62 @@ def search_memo_by_date(path: Path) -> None:
         connection.close()
 
 
+def check_date(date: str) -> bool:
+    """Checks user's date to search.
+
+    Args:
+        date (str): date to check (in format '%Y-%m-%d').
+
+    Returns:
+        bool: True if user's date is valid, False otherwise.
+
+    """
+    today = datetime.today().date()
+
+    try:
+
+        date_to_check = datetime.strptime(date, '%Y-%m-%d').date()
+        delta = today - date_to_check
+
+        if delta.total_seconds() < 0:
+            print('Этот день ещё не наступил.', end=' ')
+            raise ValueError
+
+        return True
+
+    except ValueError:
+        print('Введена неверная дата!')
+
+        return False
+
+
 def search_memo_by_title(path: Path) -> None:
-    """Search memo in database (by text)."""
+    """Searches memo in database (by title) using SQL-query.
+
+    Note:
+        To search, user have to input a string (title or keyword - part of it).
+
+        The search is case-insensitive.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Raises:
+        DatabaseError: If operation failed.
+
+    """
     connection = connect(path)
-    connection.enable_load_extension(True)
-    connection.load_extension(extension_path().replace('.so', ''))
+    connection.create_function('CASEFOLD', 1, lambda x: x.casefold())
     cursor = connection.cursor()
 
     sql_select_title = """SELECT ROWID, date_time, titles, bodies, tags
                                FROM memos
-                               WHERE lower(titles, "ru_RUS") LIKE ?;"""
+                               WHERE CASEFOLD(titles) LIKE ?;"""
     print_md('Введите фрагмент заголовка заметки:')
     title = get_title_to_search().strip()
 
     if title != '':
-        title_to_search = f'%{title.lower()}%'
+        title_to_search = f'%{title.casefold()}%'
     else:
         title_to_search = title
 
@@ -404,20 +573,32 @@ def search_memo_by_title(path: Path) -> None:
 
 
 def search_memo_by_text(path: Path) -> None:
-    """Search memo in database (by text)."""
+    """Search memo in database (by text) using SQL-query.
+
+    Note:
+        To search, user have to input a string (word or phrase - part of text).
+
+        The search is case-insensitive.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Raises:
+        DatabaseError: If operation failed.
+
+    """
     connection = connect(path)
-    connection.enable_load_extension(True)
-    connection.load_extension(extension_path().replace('.so', ''))
+    connection.create_function('CASEFOLD', 1, lambda x: x.casefold())
     cursor = connection.cursor()
 
     sql_select_text = """SELECT ROWID, date_time, titles, bodies, tags
                               FROM memos
-                              WHERE lower(bodies, "ru_RUS") LIKE ?"""
+                              WHERE CASEFOLD(bodies) LIKE ?"""
     print_md('Введите фрагмент текста заметки:')
     text = get_text_to_search().strip()
 
     if text != '':
-        text_to_search = f'%{text.lower()}%'
+        text_to_search = f'%{text.casefold()}%'
     else:
         text_to_search = text
 
@@ -441,20 +622,32 @@ def search_memo_by_text(path: Path) -> None:
 
 
 def search_memo_by_tag(path: Path) -> None:
-    """Search memo in database (by tag)."""
+    """Search memo in database (by tag) using SQL-query.
+
+    Note:
+        To search, user have to input a word.
+
+        The search is case-insensitive.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Raises:
+        DatabaseError: If operation failed
+
+    """
     connection = connect(path)
-    connection.enable_load_extension(True)
-    connection.load_extension(extension_path().replace('.so', ''))
+    connection.create_function('CASEFOLD', 1, lambda x: x.casefold())
     cursor = connection.cursor()
 
     sql_select_tag = """SELECT ROWID, date_time, titles, bodies, tags
                              FROM memos
-                             WHERE lower(tags, "ru_RUS") LIKE ?;"""
+                             WHERE CASEFOLD(tags) LIKE ?;"""
     print_md('Введите фрагмент тега заметки:')
     tag = get_tag_to_search().strip()
 
     if tag != '':
-        tag_to_search = f'%{tag.lower()}%'
+        tag_to_search = f'%{tag.casefold()}%'
     else:
         tag_to_search = tag
 
@@ -478,7 +671,22 @@ def search_memo_by_tag(path: Path) -> None:
 
 
 def search_memo_by_rowid(path: Path) -> int:
-    """Search memo in database (by ROWID)."""
+    """Search memo in database (by rowid) using SQL-query.
+
+    Note:
+        To search, user have to input a correct number (rowid).
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Returns:
+        int: a number > 0 if database is not empty;
+        -1 if user's input is not valid of raises DatabaseError.
+
+    Raises:
+        DatabaseError: If operation failed.
+
+    """
     connection = connect(path)
     cursor = connection.cursor()
 
@@ -514,7 +722,18 @@ def search_memo_by_rowid(path: Path) -> int:
 
 
 def count_memos(path: Path) -> int:
-    """Show a number of memos in database."""
+    """Show a number of memos in DB sing SQL-query.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Returns:
+        int: a number of existing memos in database.
+
+    Raises:
+        DatabaseError: If operation failed.
+
+    """
     connection = connect(path)
     cursor = connection.cursor()
 
@@ -535,7 +754,18 @@ def count_memos(path: Path) -> int:
 
 
 def check_db_integrity(path: Path) -> None:
-    """Check integrity of database."""
+    """Check integrity of database using SQL-query.
+
+    Note:
+        Uses SQLite's query `PRAGMA integrity_check`.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Raises:
+        DatabaseError: If operation failed.
+
+    """
     connection = connect(path)
     cursor = connection.cursor()
 

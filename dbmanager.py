@@ -1,4 +1,4 @@
-"""Set path, check if database exists, backup and restore database."""
+"""Sets path, check if database exists, backup and restore database."""
 from pathlib import Path
 from shutil import copy as db_copy
 
@@ -7,7 +7,12 @@ from prompter import check_confirmation
 
 
 def set_db_path() -> Path:
-    """Create (in not exists) a directory and set path to store database."""
+    """Creates (in not exists) a directory and set path to store DB.
+
+    Returns:
+        Path: PosixPath of working directory.
+
+    """
     home = Path.home()
 
     working_dir = home.joinpath('.memopad')
@@ -20,7 +25,15 @@ def set_db_path() -> Path:
 
 
 def set_backup_path(path: Path) -> Path:
-    """Set path of database's backup."""
+    """Sets path of database's backup.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Returns:
+        Path: PosixPath of database's backup file.
+
+    """
     working_dir = path.parent
     db = path.name
     path_backup = working_dir.joinpath(f'{db}.backup')
@@ -29,19 +42,40 @@ def set_backup_path(path: Path) -> Path:
 
 
 def check_db(path: Path) -> bool:
-    """Check if database of memos exists."""
+    """Checks if DB of memos exists.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Returns:
+        bool: bool: True if path exists and backup is file, False otherwise.
+
+    """
     return path.exists() and path.is_file()
 
 
 def check_backup(path: Path) -> bool:
-    """Check if database of memos exists."""
+    """Checks if database's backup of memos exists.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    Returns:
+        bool: True if path exists and backup is file, False otherwise.
+
+    """
     path_backup = set_backup_path(path)
 
     return path_backup.exists() and path_backup.is_file()
 
 
 def backup_db(path: Path) -> None:
-    """Backup database of memos."""
+    """Backups DB of memos.
+
+    Args:
+        path: PosixPath of program's working directory.
+
+    """
     path_backup = set_backup_path(path)
 
     print_md('Создать резервную копию базы заметок?')
@@ -53,7 +87,12 @@ def backup_db(path: Path) -> None:
 
 
 def restore_db(path: Path) -> None:
-    """Restore database from backup."""
+    """Restores DB from backup.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    """
     is_db = check_db(path)
     is_backup = check_backup(path)
     path_backup = set_backup_path(path)
@@ -81,7 +120,12 @@ def restore_db(path: Path) -> None:
 
 
 def remove_db(path: Path) -> None:
-    """Delete old database and create new database."""
+    """Deletes existing DB and create new DB.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    """
     is_db = check_db(path)
 
     if is_db:
@@ -93,7 +137,12 @@ def remove_db(path: Path) -> None:
 
 
 def clear_data(path: Path) -> None:
-    """Clear all data and remove working directory."""
+    """Clears all data and remove working directory.
+
+    Args:
+        path (Path): PosixPath of program's working directory.
+
+    """
     working_dir = path.parent
     backup_path = set_backup_path(path)
     is_db = check_db(path)

@@ -1,5 +1,4 @@
 """How-to edit text (in prompt to enter parts of new memo)."""
-
 HOTKEYS: str = """
 ## Как редактировать вводимый текст заметки
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MemoPad - CLI program using SQLite to store memos (version 1.1.8)."""
+"""MemoPad - CLI program using SQLite to store memos (version 1.1.9)."""
 import sys
 
 from prompt_toolkit.shortcuts import set_title
@@ -24,7 +24,17 @@ from sqlconnector import show_recent, show_last, show_all, show_total_memos
 
 
 def main() -> None:
-    """Memopad - CLI program using SQLite to store memos."""
+    """Memopad - CLI program using SQLite to store memos: main module.
+
+    Runs commands in a command-line interpreter.
+
+    Note:
+        `main` prompts user to create database's backup before exit.
+
+    Example:
+        memopad >>> help
+
+    """
     set_title('MemoPad')
 
     print_md(TITLE)
