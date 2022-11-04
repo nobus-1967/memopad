@@ -5,13 +5,17 @@ from sqlite3 import connect, DatabaseError
 
 from pyperclip import copy as copy_to_clipboard
 
-from dbmanager import check_db, check_backup, set_backup_path, restore_db
-from mdprinter import print_memo_from_db, print_md, print_total
-from memoeditor import input_corrected_body
-from memoeditor import input_corrected_title, input_corrected_tag
-from prompter import check_confirmation, get_rowid
-from prompter import get_date_to_search
-from prompter import get_title_to_search, get_text_to_search, get_tag_to_search
+from .dbmanager import check_db, check_backup, set_backup_path, restore_db
+from .mdprinter import print_memo_from_db, print_md, print_total
+from .memoeditor import input_corrected_body
+from .memoeditor import input_corrected_title, input_corrected_tag
+from .prompter import check_confirmation, get_rowid
+from .prompter import get_date_to_search
+from .prompter import (
+    get_title_to_search,
+    get_text_to_search,
+    get_tag_to_search,
+)
 
 
 def check_db_path_and_table(path: Path) -> None:

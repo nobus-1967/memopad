@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """Uses custom editable prompt from module `prompt-toolkit`."""
-from datetime import datetime
 from prompt_toolkit import prompt
 from prompt_toolkit.clipboard.pyperclip import PyperclipClipboard
 from prompt_toolkit.completion import WordCompleter
 from prompt_toolkit.formatted_text import ANSI
 
-from mdprinter import print_md
+from .mdprinter import print_md
 
 COMMANDS: list[str] = [
     'help',

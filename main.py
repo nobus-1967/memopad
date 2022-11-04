@@ -1,26 +1,28 @@
 #!/usr/bin/env python3
-"""MemoPad - CLI program using SQLite to store memos (version 1.1.9)."""
+"""MemoPad - CLI program using SQLite to store memos (version 1.2.0)."""
 import sys
 
 from prompt_toolkit.shortcuts import set_title
 
-from commandshelp import COMMANDS
-from dbmanager import set_db_path, backup_db, remove_db, restore_db, clear_data
-from howtokeys import HOTKEYS
-from howtomd import MARKDOWN
-from mdprinter import print_new_memo, print_md
-from memoeditor import create_new_memo
-from messages import HOWTO, VIEW, EDIT, DEL, SEARCH, BACKUP
-from messages import TITLE, INFO, COPYRIGHT, CLEAR
-from prompter import check_command
-from sqlconnector import add_memo, delete_memo, delete_all
-from sqlconnector import check_db_integrity, check_db_path_and_table
-from sqlconnector import create_db
-from sqlconnector import edit_title, edit_body, edit_tag
-from sqlconnector import search_memo_by_rowid, search_memo_by_date
-from sqlconnector import search_memo_by_tag
-from sqlconnector import search_memo_by_title, search_memo_by_text
-from sqlconnector import show_recent, show_last, show_all, show_total_memos
+from help.commandshelp import COMMANDS
+from modules.dbmanager import set_db_path
+from modules.dbmanager import backup_db, remove_db, restore_db, clear_data
+from help.howtokeys import HOTKEYS
+from help.howtomd import MARKDOWN
+from modules.mdprinter import print_new_memo, print_md
+from modules.memoeditor import create_new_memo
+from help.messages import HOWTO, VIEW, EDIT, DEL, SEARCH, BACKUP
+from help.messages import TITLE, INFO, COPYRIGHT, CLEAR
+from modules.prompter import check_command
+from modules.sqlconnector import add_memo, delete_memo, delete_all
+from modules.sqlconnector import check_db_integrity, check_db_path_and_table
+from modules.sqlconnector import create_db
+from modules.sqlconnector import edit_title, edit_body, edit_tag
+from modules.sqlconnector import search_memo_by_rowid, search_memo_by_date
+from modules.sqlconnector import search_memo_by_tag
+from modules.sqlconnector import search_memo_by_title, search_memo_by_text
+from modules.sqlconnector import show_recent, show_last, show_all
+from modules.sqlconnector import show_total_memos
 
 
 def main() -> None:
@@ -29,7 +31,7 @@ def main() -> None:
     Runs commands in a command-line interpreter.
 
     Note:
-        `main` prompts user to create database's backup before exit.
+        Function `main` prompts user to create database's backup before exit.
 
     Example:
         memopad >>> help

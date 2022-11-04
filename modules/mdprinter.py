@@ -7,7 +7,7 @@ def print_new_memo(memo: tuple[str, ...]) -> None:
     """Prints creating memo (process Markdown using module `rich`).
 
     Args:
-        memo (tuple[str, ...]): tuple contains memo's elements
+        memo (tuple[str, ...]): tuple containing memo's elements
         (date_time, title, body and tag).
 
     """
@@ -26,7 +26,7 @@ def print_memo_from_db(memo: tuple[str, ...]) -> None:
     """Prints memo from DB (process Markdown using module `rich`).
 
     Args:
-        memo (tuple[str, ...]): tuple contains memo's elements
+        memo (tuple[str, ...]): tuple containing memo's elements
         (rowid, date_time, title, body and tag).
 
     """

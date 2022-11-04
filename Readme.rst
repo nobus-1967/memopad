@@ -29,7 +29,7 @@ MemoPad
 
 Автор программы: **Анатолий Щербина** (https://github.com/nobus-1967).
 
-Версия программы: ``1.1.9``
+Версия программы: ``1.2.0``
 
 Лицензия: `GNU General Public License
 v3.0 <LICENSE.md>`__.
