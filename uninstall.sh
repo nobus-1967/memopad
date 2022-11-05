@@ -3,12 +3,9 @@ clear
 echo "Удаление MemoPad:"
 echo "------------------"
 
-echo "mkdir $MEMOPAD"
-
-export MEMOPAD="$HOME/.local/bin/memopad"
+export MEMOPAD="$HOME/.local/share/memopad"
 rm -rv "$MEMOPAD"
 
 echo "--------------------"
 echo "Удаление завершено."
-
 
