@@ -35,7 +35,7 @@
 
 3) сделать исполняемым файл `install.sh` (`chmod u+x install.sh`) и запустить его (`./install.sh`);
 
-4) при необходимости удалить репозиторий (cd ~ && rm -rv memopad) или архив и распакованную папку (cd ~ && rm -rv memopad-main main.zip);
+4) при необходимости удалить репозиторий (`cd ~ && rm -rv memopad`) или архив и распакованную папку (`cd ~ && rm -rv memopad-main main.zip`);
 
 5) перезапустить `Bash`: `source ~/.bashrc`; теперь программу можно запускать в терминале командой `memopad`.
 
