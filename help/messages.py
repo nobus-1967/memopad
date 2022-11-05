@@ -1,4 +1,4 @@
-"""Program messages for MemoPad."""
+"""Program messages and contex help for MemoPad."""
 TITLE: str = """
 # MEMOPAD (SQLite-версия 1.2.0)
 
@@ -39,7 +39,7 @@ EDIT: str = """
 
 """
 DEL: str = """
-`del` показывает команды по удалению заметок из базы:
+'del` показывает команды по удалению заметок из базы:
 
 - `del-memo`(`-dm`) - удаление заметки из базы (по ID)
 - `del-all`(`-da`) - удаление всех заметок из базы

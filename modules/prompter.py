@@ -5,7 +5,7 @@ from prompt_toolkit.clipboard.pyperclip import PyperclipClipboard
 from prompt_toolkit.completion import WordCompleter
 from prompt_toolkit.formatted_text import ANSI
 
-from .mdprinter import print_md
+from modules.mdprinter import print_md
 
 COMMANDS: list[str] = [
     'help',

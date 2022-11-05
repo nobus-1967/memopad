@@ -1,16 +1,17 @@
 """Creates new memo with date_time, title, body and tag."""
 from datetime import datetime
 
-from .mdprinter import print_md
-from .prompter import get_new_title, get_new_text, get_new_tag
-from .prompter import get_title_to_edit, get_text_to_edit, get_tag_to_edit
+from modules.mdprinter import print_md
+from modules.prompter import get_new_title, get_new_text, get_new_tag
+from modules.prompter import get_title_to_edit, get_text_to_edit
+from modules.prompter import get_tag_to_edit
 
 
 def create_new_memo() -> tuple[str, ...]:
     """Creates new memo (as tuple) with date_time, title, body and tag.
 
     Returns:
-        tuple[str, ...]: tuple containing memo's elements
+        tuple[str, ...]: tuple contains memo's elements
         (date_time, title, body and tag).
 
     """

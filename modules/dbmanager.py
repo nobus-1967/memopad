@@ -2,8 +2,8 @@
 from pathlib import Path
 from shutil import copy as db_copy
 
-from .mdprinter import print_md
-from .prompter import check_confirmation
+from modules.mdprinter import print_md
+from modules.prompter import check_confirmation
 
 
 def set_db_path() -> Path:
