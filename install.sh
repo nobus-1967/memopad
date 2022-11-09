@@ -33,7 +33,7 @@ fi
 
 {
   echo "" && echo "# Add MemoPad Path"
-  echo 'export PATH="$PATH:'"$MEMOPAD_PATH\""
+  echo "export PATH=\"\$PATH:$MEMOPAD_PATH\""
 } >> "$SHELL_FILE"
 echo  "PATH='$MEMOPAD_PATH'" "->" "'$SHELL_FILE'"
 
