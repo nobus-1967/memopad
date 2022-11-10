@@ -15,7 +15,7 @@ cp ./*.py -vu "$MEMOPAD_DIR"
 cd "$MEMOPAD_DIR" && echo "$PWD"
 
 echo "ln 'main.py' -> 'memopad'"
-if test -e "$MEMOPAD_DIR/memopad"; then
+if [ -e "$MEMOPAD_DIR/memopad" ]; then
   rm "$MEMOPAD_DIR/memopad" && ln main.py memopad
 else
   ln main.py memopad
@@ -23,11 +23,11 @@ fi
 
 MEMOPAD_PATH="$HOME/.local/share/memopad"
 
-if test -e "$HOME/.bash_profile"; then
+if [ -e "$HOME/.bash_profile" ]; then
   SHELL_FILE="$HOME/.bash_profile"
-elif test -e "$HOME/.profile"; then
+elif [ -e "$HOME/.profile" ]; then
   SHELL_FILE="$HOME/.profile"
-elif test -e "$HOME/.bashrc"; then
+elif [ -e "$HOME/.bashrc" ]; then
   SHELL_FILE="$HOME/.bashrc"
 fi
 
