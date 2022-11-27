@@ -161,7 +161,7 @@ def get_rowid() -> int:
         int: memo's rowid entered by user.
 
     Raises:
-        ValueError: If rowid is less then 0.
+        ValueError: If rowid is less than 0.
 
         In that case returns 0.
 

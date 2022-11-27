@@ -5,7 +5,8 @@ import sys
 from prompt_toolkit.shortcuts import set_title
 
 from help.commandshelp import COMMANDS
-from modules.dbmanager import set_db_path, backup_db, remove_db, restore_db, clear_data
+from modules.dbmanager import set_db_path
+from modules.dbmanager import backup_db, remove_db, restore_db, clear_data
 from help.howtokeys import HOTKEYS
 from help.howtomd import MARKDOWN
 from modules.mdprinter import print_new_memo, print_md
@@ -20,13 +21,14 @@ from modules.sqlconnector import edit_title, edit_body, edit_tag
 from modules.sqlconnector import search_memo_by_rowid, search_memo_by_date
 from modules.sqlconnector import search_memo_by_tag
 from modules.sqlconnector import search_memo_by_title, search_memo_by_text
-from modules.sqlconnector import show_recent, show_last, show_all, show_total_memos
+from modules.sqlconnector import show_recent, show_last
+from modules.sqlconnector import show_all, show_total_memos
 
 
 def main() -> None:
     """Memopad - CLI program using SQLite to store memos: main module.
 
-    Runs commands in a command-line interpreter.
+    Runs command in a command-line interpreter.
 
     Note:
         `main` prompts user to create database's backup before exit.
